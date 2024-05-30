@@ -1,7 +1,6 @@
 <?php
 // core.php holds pagination variables
 include_once 'config/core.php';
-  
 // include database and object files
 include_once 'config/database.php';
 include_once 'objects/product.php';
@@ -30,5 +29,50 @@ $total_rows=$product->countAll();
 include_once "read_template.php";
   
 // layout_footer.php holds our javascript and closing html tags
+
+?>
+
+<?php
+// include database and object files
+include_once 'config/database.php';
+
+// get database connection
+$database = new Database();
+$db = $database->getConnection();
+
+// select all from history
+$query = "SELECT * FROM History ORDER BY timestamp DESC";
+$stmt = $db->prepare($query);
+$stmt->execute();
+
+// include page header
+$page_title = "History of CRUD";
+include_once "layout_header.php";
+
+echo "<div class='right-button-margin'>
+        <a class='btn btn-default pull-right'>History Action</a>
+    </div>";
+
+// display the history
+echo "<table class='table table-hover table-responsive table-bordered'>";
+    echo "<tr>";
+        echo "<th>ID</th>";
+        echo "<th>Action</th>";
+        echo "<th>Time</th>";
+    echo "</tr>";
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+    extract($row);
+
+    echo "<tr>";
+        echo "<td>{$product_id}</td>";
+        echo "<td>{$action}</td>";
+        echo "<td>{$timestamp}</td>";
+    echo "</tr>";
+}
+
+echo "</table>";
+
+// include page footer
 include_once "layout_footer.php";
 ?>

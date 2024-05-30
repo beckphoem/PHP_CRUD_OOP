@@ -19,6 +19,7 @@ echo "<div class='right-button-margin'>
     </div>";
   
 ?>
+
 <?php 
 // if the form was submitted - PHP OOP CRUD Tutorial
 if($_POST){
@@ -100,4 +101,38 @@ if($_POST){
   
 // footer
 include_once "layout_footer.php";
+?>
+
+<?php
+// include database and object files
+include_once 'config/database.php';
+include_once 'objects/product.php';
+
+// get database connection
+$database = new Database();
+$db = $database->getConnection();
+
+// prepare product object
+$product = new Product($db);
+
+// set product property values
+$product->name = $_POST['name'];
+$product->price = $_POST['price'];
+$product->description = $_POST['description'];
+$product->category_id = $_POST['category_id'];
+
+// create the product
+if($product->create()){
+    echo "Product was created.";
+
+    // Insert into history
+    $query = "INSERT INTO History SET product_id = :product_id, action = 'Create', timestamp = NOW()";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':product_id', $product->id);
+    $stmt->execute();
+}
+
+else{
+    echo "Unable to create product.";
+}
 ?>

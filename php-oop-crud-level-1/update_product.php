@@ -52,6 +52,38 @@ if($_POST){
             Unable to update product.
         </div>";
     }
+    include_once 'config/database.php';
+    include_once 'objects/product.php';
+    include_once 'objects/category.php';
+
+    // get database connection
+    $database = new Database();
+    $db = $database->getConnection();
+
+    // prepare product object
+    $product = new Product($db);
+
+    // set product property values
+    $product->id = $id;
+    $product->name = $_POST['name'];
+    $product->price = $_POST['price'];
+    $product->description = $_POST['description'];
+    $product->category_id = $_POST['category_id'];
+
+    // update the product
+    if($product->update()){
+        echo "Product was updated.";
+
+        // Insert into history
+        $query = "INSERT INTO History SET product_id = :product_id, action = 'Update', timestamp = NOW()";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':product_id', $product->id);
+        $stmt->execute();
+    }
+
+    else{
+        echo "Unable to update product.";
+    }
 }
 ?>  
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}");?>" method="post">
@@ -109,7 +141,9 @@ if($_POST){
   
     </table>
 </form>
+
 <?php
 // set page footer
 include_once "layout_footer.php";
 ?>
+
