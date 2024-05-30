@@ -13,3 +13,5 @@ link bài viết: https://www.codeofaninja.com/php-oop-crud-tutorial/
 5. Tải thử mục php-oop-crud-level-1 về lưu ở thư mục chứa xammp/htdocs trên máy tính
    ![image](https://github.com/beckphoem/PHP_CRUD_OOP/assets/116699754/ab4dfc52-3929-418a-8ca6-74a2d7c6cb01)
 6. Nhấn vào link để chạy http://localhost/php-oop-crud-level-1/
+    ![image](https://github.com/beckphoem/PHP_CRUD_OOP/assets/116699754/5fe11dca-5d8c-4e07-b7f1-41fe065e7a1a)
+
