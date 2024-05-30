@@ -14,4 +14,12 @@ link bài viết: https://www.codeofaninja.com/php-oop-crud-tutorial/
    ![image](https://github.com/beckphoem/PHP_CRUD_OOP/assets/116699754/ab4dfc52-3929-418a-8ca6-74a2d7c6cb01)
 6. Nhấn vào link để chạy http://localhost/php-oop-crud-level-1/
     ![image](https://github.com/beckphoem/PHP_CRUD_OOP/assets/116699754/5fe11dca-5d8c-4e07-b7f1-41fe065e7a1a)
+7. Tạo bảng history code sql:
 
+8. Mã sql
+  CREATE TABLE IF NOT EXISTS History (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    action VARCHAR(50) NOT NULL,
+    timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
